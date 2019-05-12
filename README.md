@@ -267,14 +267,11 @@ Hint: we aim to be API-compatible with the big APM solutions, so if you've got r
 
 The puma metrics are using the `Puma.stats` method and hence need to be started after the
 workers has been booted and from a Puma thread otherwise the metrics won't be accessible.
-The easiest way to gather this metrics is to put the following in your `puma.rb` config:
+The easiest way to gather this metrics is to activate the provided puma plugin in your `puma.rb` config:
 
 ```ruby
 # puma.rb config
-after_worker_boot do
-  require 'prometheus_exporter/instrumentation'
-  PrometheusExporter::Instrumentation::Puma.start
-end
+plugin :prometheus_exporter
 ```
 
 ### Unicorn process metrics
